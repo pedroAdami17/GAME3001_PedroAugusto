@@ -103,7 +103,9 @@ void PlayScene::GUI_Function() const
 	if(ImGui::Button("Reset"))
 	{
 		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
-		m_pSpaceShip->setEnabled(false);	
+		m_pSpaceShip->setEnabled(false);
+		m_pSpaceShip->getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
+		m_pSpaceShip->setRotation(0.0f); //set angle to 0 degrees
 	}
 
 	ImGui::Separator();

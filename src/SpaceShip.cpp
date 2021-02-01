@@ -19,6 +19,8 @@ SpaceShip::SpaceShip():m_maxSpeed(10.0f)
 	setType(SPACE_SHIP);
 	setOrientation(glm::vec2(0.0f, -1.0f));
 	setRotation(0.0f);
+	setAccelerationRate(10.0f);
+	setTurnRate(10.0f);
 	
 }
 
@@ -52,37 +54,37 @@ void SpaceShip::setMaxSpeed(const float speed)
 	m_maxSpeed = speed;
 }
 
-glm::vec2 SpaceShip::getOrientation()
+glm::vec2 SpaceShip::getOrientation() const
 {
 	return m_orientation;
 }
 
-float SpaceShip::getTurnRate() 
+float SpaceShip::getTurnRate() const
 {
 	return m_turnRate;
 }
 
-void SpaceShip::setTurnRate(float rate)
+void SpaceShip::setTurnRate(const float rate)
 {
 	m_turnRate = rate;
 }
 
-float SpaceShip::getAccelerationRate()
+float SpaceShip::getAccelerationRate() const
 {
 	return m_accelerationRate;
 }
 
-void SpaceShip::setAccelerationRate(float rate)
+void SpaceShip::setAccelerationRate(const float rate)
 {
 	m_accelerationRate = rate;
 }
 
-void SpaceShip::setOrientation(glm::vec2 orientation)
+void SpaceShip::setOrientation(const glm::vec2 orientation)
 {
 	m_orientation = orientation;
 }
 
-void SpaceShip::setRotation(float angle)
+void SpaceShip::setRotation(const float angle)
 {
 	m_rotationAngle = angle;
 
@@ -113,12 +115,30 @@ void SpaceShip::m_Move()
 
 
 	auto target_rotation = Util::signedAngle(getOrientation(), m_targetDirection);
-	std::cout << "Target Rotation: " << target_rotation << std::endl;
 
-	/*
-	getRigidBody()->velocity = m_targetDirection * m_maxSpeed;
+	auto turn_sensitivity = 5.0f;
 
-	getTransform()->position += getRigidBody()->velocity;*/
+	if(abs(target_rotation) > turn_sensitivity)
+	{
+		if (target_rotation < 0.0f)
+		{
+			setRotation(getRotation() + getTurnRate());
+		}
+		else if (target_rotation < 0.0f)
+		{
+			setRotation(getRotation() - getTurnRate());
+		}
+	}
+
+
+	getRigidBody()->acceleration = getOrientation() * getAccelerationRate();
+	
+	getRigidBody()->velocity += getOrientation() * (deltaTime) + 
+		0.5f * getRigidBody()->acceleration * (deltaTime);
+
+	getRigidBody()->velocity = Util::clamp(getRigidBody()->velocity, m_maxSpeed);
+
+	getTransform()->position += getRigidBody()->velocity;
 }
 
 
