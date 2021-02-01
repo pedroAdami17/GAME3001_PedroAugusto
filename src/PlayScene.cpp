@@ -60,9 +60,11 @@ void PlayScene::handleEvents()
 
 void PlayScene::start()
 {
+	// Background and music maybe here?
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
-
+	
+	// Here is where it renders the target. Add here if statements to each option required
 	m_pTarget = new Target;
 	m_pTarget->getTransform()->position = glm::vec2(400.0f, 300.0f);
 	addChild(m_pTarget);
