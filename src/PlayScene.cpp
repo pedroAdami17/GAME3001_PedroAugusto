@@ -6,6 +6,7 @@
 #include "imgui.h"
 #include "imgui_sdl.h"
 #include "Renderer.h"
+#include "Util.h"
 
 PlayScene::PlayScene()
 {
@@ -93,19 +94,39 @@ void PlayScene::GUI_Function() const
 		m_pSpaceShip->setMaxSpeed(speed);
 	}
 
+	static float acceleration_rate = 2.0f;
+	if(ImGui::SliderFloat("Acceleration Rate", &acceleration_rate, 0.0f, 50.0f))
+	{
+		m_pSpaceShip->setAccelerationRate(acceleration_rate);
+	}
+
 	static float angleInRadiants = m_pSpaceShip->getRotation();
-	if (ImGui::SliderAngle("Orientation Angle", &angleInRadiants));
+	if (ImGui::SliderAngle("Orientation Angle", &angleInRadiants))
+	{
+		m_pSpaceShip->setRotation(angleInRadiants * Util::Rad2Deg);
+	}
+
+	static float turn_rate = 5.0f;
+	if(ImGui::SliderFloat("Turn Rate", &turn_rate, 0.0f, 20.0f))
+	{
+		m_pSpaceShip->setTurnRate(turn_rate);
+	}
 	
 	if(ImGui::Button("Start"))
 	{
 		m_pSpaceShip->setEnabled(true);	
 	}
+	
 	if(ImGui::Button("Reset"))
 	{
 		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
 		m_pSpaceShip->setEnabled(false);
 		m_pSpaceShip->getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 		m_pSpaceShip->setRotation(0.0f); //set angle to 0 degrees
+		turn_rate = 5.0f;
+		acceleration_rate = 2.0f;
+		speed = 10.0f;
+		angleInRadiants = m_pSpaceShip->getRotation(); 
 	}
 
 	ImGui::Separator();
