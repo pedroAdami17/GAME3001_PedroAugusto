@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "EventManager.h"
 #include "glm/gtx/string_cast.hpp"
+#include "SoundManager.h"
 
 
 
