@@ -32,7 +32,7 @@ void SpaceShip::draw()
 	TextureManager::Instance()->draw("spaceship",
 		getTransform()->position.x, getTransform()->position.y, m_rotationAngle,255, true);
 
-	Util::DrawLine(getTransform()->position, (getTransform()->position + m_orientation * 20.0f));
+	Util::DrawLine(getTransform()->position, (getTransform()->position + m_orientation * 60.0f));
 }
 
 void SpaceShip::update()
@@ -120,7 +120,7 @@ void SpaceShip::m_Move()
 
 	if(abs(target_rotation) > turn_sensitivity)
 	{
-		if (target_rotation < 0.0f)
+		if (target_rotation > 0.0f)
 		{
 			setRotation(getRotation() + getTurnRate());
 		}
