@@ -55,15 +55,58 @@ void PlayScene::handleEvents()
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_1))
 	{
-		TheGame::Instance()->changeSceneState(START_SCENE);
-	}
+		m_pTarget = new Target();
+		m_pTarget->getTransform()->position = glm::vec2(600.0f, 300.0f);
+		addChild(m_pTarget);
 
-	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_2))
+		m_pSpaceShip = new SpaceShip();
+		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 300.0f);
+		m_pSpaceShip->setEnabled(false);
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
+		addChild(m_pSpaceShip);
+	}
+	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_2))
 	{
-		TheGame::Instance()->changeSceneState(END_SCENE);
+		m_pTarget = new Target();
+		m_pTarget->getTransform()->position = glm::vec2(100.0f, 300.0f);
+		addChild(m_pTarget);
+
+		m_pSpaceShip = new SpaceShip();
+		m_pSpaceShip->getTransform()->position = glm::vec2(300.0f, 300.0f);
+		m_pSpaceShip->setEnabled(false);
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
+		addChild(m_pSpaceShip);
+	}
+	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_3))
+	{
+		m_pTarget = new Target();
+		m_pTarget->getTransform()->position = glm::vec2(200.0f, 300.0f);
+		addChild(m_pTarget);
+
+		m_pSpaceShip = new SpaceShip();
+		m_pSpaceShip->getTransform()->position = glm::vec2(500.0f, 300.0f);
+		m_pSpaceShip->setEnabled(false);
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
+		addChild(m_pSpaceShip);
+	}
+	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_4))
+	{
+		m_pTarget = new Target();
+		m_pTarget->getTransform()->position = glm::vec2(500.0f, 300.0f);
+		addChild(m_pTarget);
+
+		m_pObstacle = new Obstacle();
+		m_pObstacle->getTransform()->position = glm::vec2(200.0f, 300.0f);
+		addChild(m_pObstacle);
+
+		// instantiating spaceship
+		m_pSpaceShip = new SpaceShip();
+		m_pSpaceShip->getTransform()->position = glm::vec2(300.0f, 300.0f);
+		m_pSpaceShip->setEnabled(false);
+		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
+		addChild(m_pSpaceShip);
 	}
 
-	std::cin >> choice;
 }
 
 void PlayScene::start()
@@ -88,25 +131,23 @@ void PlayScene::start()
 	m_pInstructionsLabel->setParent(this);
 	addChild(m_pInstructionsLabel);
 
+
+	m_pTarget = new Target();
+	m_pTarget->getTransform()->position = glm::vec2(700.0f, 300.0f);
+	addChild(m_pTarget);
+
+	m_pObstacle = new Obstacle();
+	m_pObstacle->getTransform()->position = glm::vec2(500.0f, 300.0f);
+	addChild(m_pObstacle);
+
+	// instantiating spaceship
+	m_pSpaceShip = new SpaceShip();
+	m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 300.0f);
+	m_pSpaceShip->setEnabled(false);
+	m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
+	addChild(m_pSpaceShip);
+
 	
-
-	if(choice == 1)
-	{
-		m_pTarget = new Target();
-		m_pTarget->getTransform()->position = glm::vec2(700.0f, 300.0f);
-		addChild(m_pTarget);
-
-		m_pObstacle = new Obstacle();
-		m_pObstacle->getTransform()->position = glm::vec2(500.0f, 300.0f);
-		addChild(m_pObstacle);
-
-		// instantiating spaceship
-		m_pSpaceShip = new SpaceShip();
-		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 300.0f);
-		m_pSpaceShip->setEnabled(false);
-		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
-		addChild(m_pSpaceShip);
-	}
 	
 }
 
