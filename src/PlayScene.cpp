@@ -64,11 +64,16 @@ void PlayScene::start()
 	// Background and music maybe here?
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
+
 	
 	// Here is where it renders the target. Add here if statements to each option required
 	m_pTarget = new Target;
-	m_pTarget->getTransform()->position = glm::vec2(400.0f, 300.0f);
+	m_pTarget->getTransform()->position = glm::vec2(700.0f, 300.0f);
 	addChild(m_pTarget);
+
+	m_pObstacle = new Obstacle();
+	m_pObstacle->getTransform()->position = glm::vec2(500.0f, 300.0f);
+	addChild(m_pObstacle);	
 	
 	m_pSpaceShip = new SpaceShip();
 	m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
@@ -126,7 +131,7 @@ void PlayScene::GUI_Function() const
 		turn_rate = 5.0f;
 		acceleration_rate = 2.0f;
 		speed = 10.0f;
-		angleInRadiants = m_pSpaceShip->getRotation(); 
+		angleInRadiants = m_pSpaceShip->getRotation();	
 	}
 
 	ImGui::Separator();
