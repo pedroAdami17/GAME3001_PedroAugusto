@@ -16,5 +16,3 @@ enum GameObjectType {
 	NUM_OF_TYPES
 };
 #endif /* defined (__GAME_OBJECT_TYPE__) */
-
-//delete this

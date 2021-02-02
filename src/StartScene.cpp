@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "glm/gtx/string_cast.hpp"
 #include "EventManager.h"
+#include "PlayScene.h"
 
 StartScene::StartScene()
 {
@@ -53,11 +54,7 @@ void StartScene::start()
 	m_pInstructionsLabel = new Label("Pedro Augusto  ID:101300796", "Consolas", 40, blue, glm::vec2(400.0f, 120.0f));
 	m_pInstructionsLabel->setParent(this);
 	addChild(m_pInstructionsLabel);
-
-
-	m_pShip = new Ship();
-	m_pShip->getTransform()->position = glm::vec2(400.0f, 300.0f); 
-	addChild(m_pShip); 
+ 
 
 	// Start Button
 	m_pStartButton = new Button();

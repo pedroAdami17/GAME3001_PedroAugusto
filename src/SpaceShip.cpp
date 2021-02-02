@@ -4,24 +4,24 @@
 #include "Game.h"
 #include "Util.h"
 
-SpaceShip::SpaceShip():m_maxSpeed(10.0f)
+SpaceShip::SpaceShip()
 {
 	TextureManager::Instance()->load("../Assets/textures/spaceship.png", "spaceship");
 
 	auto size = TextureManager::Instance()->getTextureSize("spaceship");
 	setWidth(size.x);
-	setWidth(size.y);
+	setHeight(size.y);
 
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->isColliding = false;
 	setType(SPACE_SHIP);
+	setMaxSpeed(10.0f);
 	setOrientation(glm::vec2(0.0f, -1.0f));
 	setRotation(0.0f);
 	setAccelerationRate(10.0f);
 	setTurnRate(10.0f);
-	
 }
 
 SpaceShip::~SpaceShip()
@@ -30,7 +30,7 @@ SpaceShip::~SpaceShip()
 void SpaceShip::draw()
 {
 	TextureManager::Instance()->draw("spaceship",
-		getTransform()->position.x, getTransform()->position.y, m_rotationAngle,255, true);
+		getTransform()->position.x, getTransform()->position.y, m_rotationAngle, 255, true);
 
 	Util::DrawLine(getTransform()->position, (getTransform()->position + getOrientation() * 60.0f));
 }
@@ -94,7 +94,7 @@ void SpaceShip::setRotation(const float angle)
 	const auto x = cos(angle_in_radians);
 	const auto y = sin(angle_in_radians);
 
-	//convert the angle to a normalized vector and store it in Orientation
+	// convert the angle to a normalized vector and store it in Orientation
 	setOrientation(glm::vec2(x, y));
 }
 
@@ -105,20 +105,19 @@ float SpaceShip::getRotation() const
 
 void SpaceShip::m_Move()
 {
-	auto deltaTime = TheGame::Instance()->getDeltaTime();	
-	
-	//direction with magnitude
+	auto deltaTime = TheGame::Instance()->getDeltaTime();
+
+	// direction with magnitude
 	m_targetDirection = m_destination - getTransform()->position;
 
-	//normalized direction
+	// normalized direction
 	m_targetDirection = Util::normalize(m_targetDirection);
-
 
 	auto target_rotation = Util::signedAngle(getOrientation(), m_targetDirection);
 
 	auto turn_sensitivity = 5.0f;
 
-	if(abs(target_rotation) > turn_sensitivity)
+	if (abs(target_rotation) > turn_sensitivity)
 	{
 		if (target_rotation > 0.0f)
 		{
@@ -130,10 +129,10 @@ void SpaceShip::m_Move()
 		}
 	}
 
-
 	getRigidBody()->acceleration = getOrientation() * getAccelerationRate();
-	
-	getRigidBody()->velocity += getOrientation() * (deltaTime) + 
+
+	// using the formula pf = pi + vi*t + 0.5ai*t^2
+	getRigidBody()->velocity += getOrientation() * (deltaTime)+
 		0.5f * getRigidBody()->acceleration * (deltaTime);
 
 	getRigidBody()->velocity = Util::clamp(getRigidBody()->velocity, m_maxSpeed);

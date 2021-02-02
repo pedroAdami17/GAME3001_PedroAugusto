@@ -8,6 +8,7 @@
 #include "Obstacle.h"
 #include "SpaceShip.h"
 #include "Target.h"
+#include "ship.h"
 
 class PlayScene : public Scene
 {
@@ -21,16 +22,22 @@ public:
 	virtual void clean() override;
 	virtual void handleEvents() override;
 	virtual void start() override;
+
 private:
 	// IMGUI Function
 	void GUI_Function() const;
 	std::string m_guiTitle;
-	
+
 	glm::vec2 m_mousePosition;
 
 	SpaceShip* m_pSpaceShip;
 	Target* m_pTarget;
 	Obstacle* m_pObstacle;
+
+	Label* m_pStartLabel{};
+	Label* m_pInstructionsLabel{};
+
+	Ship* m_pShip{};
 
 	// UI Items
 

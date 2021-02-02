@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __Space_Ship__
-#define __Space_Ship__
+#ifndef __SPACE_SHIP__
+#define __SPACE_SHIP__
 #include "DisplayObject.h"
 #include "TextureManager.h"
 
@@ -10,16 +10,15 @@ public:
 	// constructor(s)
 	SpaceShip();
 
-	// Destructor
+	// destructor
 	~SpaceShip();
 
-
-	// Life-cycle methods inherited from DisplayObject
+	// life-cycle methods inherited from DisplayObject
 	void draw() override;
 	void update() override;
 	void clean() override;
 
-	//Getters and Setters
+	// getters and setters
 	void setDestination(glm::vec2 destination);
 	void setMaxSpeed(float speed);
 	glm::vec2 getOrientation() const;
@@ -41,11 +40,8 @@ private:
 	float m_turnRate;
 	float m_accelerationRate;
 
-	//private function
+	// private function
 	void m_Move();
-	
 };
 
-
-
-#endif // defined (__Space_Ship__)
+#endif /* defined (__SPACE_SHIP__) */
