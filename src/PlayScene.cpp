@@ -56,6 +56,9 @@ void PlayScene::handleEvents()
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_1))
 	{
+		SoundManager::Instance().load("../Assets/audio/pick_option.ogg", "pick_option", SOUND_SFX);
+		SoundManager::Instance().playSound("pick_option", 0);
+		
 		m_pTarget = new Target();
 		m_pTarget->getTransform()->position = glm::vec2(600.0f, 300.0f);
 		addChild(m_pTarget);
@@ -68,41 +71,50 @@ void PlayScene::handleEvents()
 	}
 	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_2))
 	{
+		SoundManager::Instance().load("../Assets/audio/pick_option.ogg", "pick_option", SOUND_SFX);
+		SoundManager::Instance().playSound("pick_option", 0);
+		
 		m_pTarget = new Target();
 		m_pTarget->getTransform()->position = glm::vec2(100.0f, 300.0f);
 		addChild(m_pTarget);
 
 		m_pSpaceShip = new SpaceShip();
-		m_pSpaceShip->getTransform()->position = glm::vec2(300.0f, 300.0f);
+		m_pSpaceShip->getTransform()->position = glm::vec2(150.0f, 300.0f);
 		m_pSpaceShip->setEnabled(false);
 		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 		addChild(m_pSpaceShip);
 	}
 	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_3))
 	{
+		SoundManager::Instance().load("../Assets/audio/pick_option.ogg", "pick_option", SOUND_SFX);
+		SoundManager::Instance().playSound("pick_option", 0);
+		
 		m_pTarget = new Target();
-		m_pTarget->getTransform()->position = glm::vec2(200.0f, 300.0f);
+		m_pTarget->getTransform()->position = glm::vec2(600.0f, 200.0f);
 		addChild(m_pTarget);
 
 		m_pSpaceShip = new SpaceShip();
-		m_pSpaceShip->getTransform()->position = glm::vec2(500.0f, 300.0f);
+		m_pSpaceShip->getTransform()->position = glm::vec2(30.0f, 550.0f);
 		m_pSpaceShip->setEnabled(false);
 		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 		addChild(m_pSpaceShip);
 	}
 	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_4))
 	{
+		SoundManager::Instance().load("../Assets/audio/pick_option.ogg", "pick_option", SOUND_SFX);
+		SoundManager::Instance().playSound("pick_option", 0);
+		
 		m_pTarget = new Target();
-		m_pTarget->getTransform()->position = glm::vec2(500.0f, 300.0f);
+		m_pTarget->getTransform()->position = glm::vec2(400.0f, 550.0f);
 		addChild(m_pTarget);
 
 		m_pObstacle = new Obstacle();
-		m_pObstacle->getTransform()->position = glm::vec2(200.0f, 300.0f);
+		m_pObstacle->getTransform()->position = glm::vec2(400.0f, 430.0f);
 		addChild(m_pObstacle);
 
 		// instantiating spaceship
 		m_pSpaceShip = new SpaceShip();
-		m_pSpaceShip->getTransform()->position = glm::vec2(300.0f, 300.0f);
+		m_pSpaceShip->getTransform()->position = glm::vec2(400.0f, 100.0f);
 		m_pSpaceShip->setEnabled(false);
 		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 		addChild(m_pSpaceShip);
@@ -114,6 +126,12 @@ void PlayScene::start()
 {
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
+
+	SoundManager::Instance().load("../Assets/audio/next_scenex.ogg", "next_scene", SOUND_SFX);
+	SoundManager::Instance().playSound("next_scene", 0);
+
+	SoundManager::Instance().load("../Assets/audio/background_musicx.ogg", "background_music", SOUND_MUSIC);
+	SoundManager::Instance().playMusic("background_music", -1);
 
 	const SDL_Color blue = { 0, 0, 255, 255 };
 	m_pInstructionsLabel = new Label("1. Enter 1 for Seeking","Consolas", 20, blue, glm::vec2(100.0f, 20.0f));
